@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {useState} from 'react';
 import {useAuth} from  '../context/auth';
+import client  from '../services/api';
 
 
 export default function Home(props) {
@@ -27,6 +28,12 @@ export default function Home(props) {
     e.preventDefault();
     login(form.username, form.password)
   }
+  const test = (e) => {
+    e.preventDefault();
+    const resp = client.get("/user");
+    console.log(resp)
+   
+  }
   return (
     <div className={styles.container}>
       <form>
@@ -39,6 +46,9 @@ export default function Home(props) {
           <input type="text" name="password" value={form.password} onChange={handleInput} />
           <button onClick={onSubmit}>
             login
+          </button>
+          <button onClick={test}>
+            troru
           </button>
         </label>
       </form>

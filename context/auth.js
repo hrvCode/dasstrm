@@ -28,8 +28,12 @@ export const AuthProvider = ({children}) => {
     const login = async (username, password) =>{
         const clientId = 'yKSUB9w7TA4J2Vv0asEc3I1aikN0SZirbEj1FPXSkDiMs3CjhXx5ad3Ryi10Xpag';
         const response = await api.post('/loginuser',{username, password, clientId}, {withCredentials: true});
-        console.log(Cookies.defaults)
-        console.log(Cookies.get("xsrf-token"))
+        
+        if(response.status === 200){
+            const cookie = Cookies.get(response.config.xsrfCookieName)
+            console.log(response)
+            console.log(cookie)
+        }
         const {data:token} = response;
         if(token){
             api.defaults.headers.Authorization = `Bearer ${token}`
